@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static',filename='main.css')}}">
+    <title>WORDCLOUD MAKER</title>
+   
+  
+  </head>
+  <body>
+    <h1 class="alert alert-warning text-center" id="warning">{{get_flashed_messages()}}</h1>
+    <!-- Navbar section --> 
+ <nav class="navbar navbar-dark bg-primary sticky-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">WORDCLOUD</a>
+    </div>
+  </div>
+</nav>
+    <!-- Navbar section ends here--> 
+    <!-- This section is for jumbotron on the webpages for the website -->
+<div class="jumbotron text-center custom-font-for-jumbotron container-fluid">
+    <h1 class="text-primary">Create Artistic Wordclouds</h1>
+    <p class="text-secondary">Generate a wordcloud using any text, pdf file or a website url and customise it with various features<br>
+    Just follow the prompts with desired inputs and you can generate a wordcloud, you can see below</p>
+        <!-- first container section strats here--> 
+  <div class="container">
+    <div class="row">
+        <div class="col-sm-12 text-center mt-3">
+          <div class=" alert alert-primary" id="text-prompt">
+             Customize your wordcloud using panel on the left and submit the source text for wordcloud generation. Note: Image mask will create a wordcloud
+             of the shape of image, it is advised that image uploaded for the image masking of wordcloud with white background works best.
+          </div>
+            <button class="btn-primary" type="button" id="back_button">Go Back to previous page</button>
+              <div class="row">
+                <div class="col-row-m-4 mx-auto">
+                  <div class="dropdown">
+                    <button class="btn btn-primary" type="button" id="upload-file">Upload a file</button>
+                  </div> 
+                </div>
+                <div class="col-m-4 mx-auto">
+                  <button class="btn btn-primary" type="button" id="paste-text">Paste a text</button>
+                </div>
+                <div class="col-m-4 mx-auto">
+                  <button class="btn btn-primary" type="button" id="webpage-url">Enter a webpage url<span class="caret"></span></button>
+                </div>
+              </div>            
+        </div>
+    </div>
+  </div> 
+</div>
+<!-- The section for jumbotron ends here -->
+ 
+<!-- this is div for image display -->
+  <div class="container-fluid mb-5 size">
+    <div class="row justify-content-center">
+      <div class="col-sm-2 text-wrap mt-5" id="menu">
+        <form action="/" method="POST" enctype="multipart/form-data" id="uf-hide">
+          <div class="form-group">
+
+
+
+            <input name="request_index" type="text" id="always_hide" value="1"/>
+
+
+
+            
+            <div class="alert alert-secondary text-center font-weight-bold">CUSTOMIZATIONS OPTIONS
+            </div>
+            <hr>
+            <!-- div for the background  -->
+            <div>
+              <label class="alert alert-primary text-center font-weight-bold">BACKGROUND</label>
+            </div>
+            <div>
+              <input class="mt-2" type="color" id="background_color" name="color" value="#000000">
+            </div>
+             <!-- div for the background  -->
+              <!-- div for the max_word   -->
+          <div>
+            <label class=" mt-5 alert alert-primary text-center font-weight-bold" for="cars">MAX WORD</label>
+            <div>
+              <select name="max_word" id="word">
+                <option value="100">100</option>
+                <option value="1000">1000</option>
+                <option value="5000">5000</option>
+                <option value="10000">10000</option>
+              </select>
+            </div>
+          </div>
+          <!-- div for the max_word   -->
+          <!-- div for the contour color    -->
+          <div>
+            <div>
+              <label class=" mt-3 alert alert-primary text-center font-weight-bold">CONTOUR COLOR</label>
+            </div>
+            <div>
+              <input class="mt-2" type="color" id="cont_color" name="contour_color" value="#DDFF33">
+            </div>
+          </div>
+           <!-- div for the contour color    -->
+            <!-- div for the scale  -->
+          <div>
+            <div>
+              <label class="mt-3 alert alert-primary text-center font-weight-bold">SCALE</label>
+            </div>
+              <div>
+                <select name="scale" id="scale_id">
+                  <option value="2">2</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+          </div>
+            <!-- div for the scale  -->
+              <!-- div for the image mask -->
+          <div>
+            <div>
+              <label class="mt-3 alert alert-primary text-center font-weight-bold">IMAGE FOR MASK</label>
+            </div>
+            <div>
+              <input class="mt-2" type = "file" name = "image" />
+            </div>
+          </div>
+            <!-- div for the image mask -->
+              <!-- div for the file upload   -->
+          <div id="upload_menu_option">
+            <div>
+              <label class="mt-3 alert alert-primary text-center font-weight-bold">UPLOAD FILE</label>
+            </div>
+            <div>
+              <input class="mt-2"  type = "file" name = "file" />
+            </div>
+          </div>
+          <!-- div for the file upload   -->
+          <!-- div for the pasting text  -->
+          <div id="modal-text">
+            <div >
+              <label class="mt-3 alert alert-primary text-center font-weight-bold">PASTE TEXT</label>
+            </div>
+            <div>
+                      <div class="container">
+                        <!-- Trigger the modal with a button -->
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Text Box</button>
+    
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 class="modal-title">Enter text here</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button> 
+                              </div>
+                              <div class="modal-body">
+                                <textarea class="mt-2" rows="2" type="text" name="modal_text" id="text_area_size"></textarea>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-outline-primary" data-dismiss="modal">Submit</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+            </div>
+          </div>
+          <!-- div for the pasting text   -->
+          <!-- div for the url  -->
+          <div id="url-input">
+            <div >
+              <label class="mt-3 alert alert-primary text-center font-weight-bold" >ENTER WEBPAGE URL</label>
+            </div>
+            <div>
+              <input class="mt-2" placeholder="enter url" type="text" name="url_data" id="url_box"/>
+            </div>
+          </div>
+          <!-- div for the url  -->
+          <!-- div for the submit   -->
+          <div id="submit_button">
+            <input  class=" mt-3 btn btn-outline-primary" type = "submit"/>
+          </div>
+          </div>
+        <!-- div for submit   -->
+      </form>
+    </div>
+      <div class="col-sm-10 text-center">
+          <img src="{{ source }}" class="img-fluid" alt="Responsive image" id="img_">
+      </div>
+    </div>
+  </div>
+<!-- the div for image dispaly ends here  -->
+  <!-- footer jumbatron -->
+  <div class="jumbotron text-center custom-font-for-jumbotron mt-5">
+    <h1>WORDCLOUD APP</h1><br>
+    <p>&copy; Copyright reserved to Spider-Monkey Website and its Owners</p>
+  </div>
+  <!-- footer jumbatron ends here -->
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='script.js')}}"></script>
+  </body>
+</html>

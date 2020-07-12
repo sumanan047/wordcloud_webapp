@@ -1,0 +1,40 @@
+.navbar-header {
+    float: left;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+}
+.navbar-brand {float:none;
+}
+#menu{
+    display: none;
+}
+#upload-file{
+    display:block;
+}
+#paste-text{
+    display: block;
+}
+#webpage-url{
+    display: block;
+}
+#text_area_size{
+    height:500px;
+    width:750px;
+}
+#back_button{
+    display: none;
+}
+#text-prompt{
+    display: none;
+}
+#img_{
+    width: 1740px;
+    height: 1200px;
+}
+#always_hide{
+    display: none;
+}
+#warning{
+    color:red;
+}
